@@ -1,0 +1,79 @@
+{
+    "frames": {
+        "character0": {
+            "frame": {
+                "x": 428,
+                "y": 0,
+                "w": 428,
+                "h": 474
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 856,
+                "h": 1896
+            },
+            "sourceSize": {
+                "w": 856,
+                "h": 1896
+            }
+        },
+        "character1": {
+            "frame": {
+                "x": 428,
+                "y": 474,
+                "w": 428,
+                "h": 474
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 856,
+                "h": 1896
+            },
+            "sourceSize": {
+                "w": 856,
+                "h": 1896
+            }
+        },
+        "character2": {
+            "frame": {
+                "x": 428,
+                "y": 948,
+                "w": 428,
+                "h": 474
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 856,
+                "h": 1896
+            },
+            "sourceSize": {
+                "w": 856,
+                "h": 1896
+            }
+        }
+    },
+    "animations": {
+        "character/walk": ["character0","character1","character2"]
+    },
+    "meta": {
+        "app": "https://www.codeandweb.com/texturepacker",
+        "version": "1.1",
+        "image": "character.png",
+        "format": "RGBA8888",
+        "size": {
+            "w": 856,
+            "h": 1896
+        },
+        "scale": "1",
+        "smartupdate": "$TexturePacker:SmartUpdate:deeaff1a9ec9fe3e47993687204991e0:3acf949d2002176352824666961de7c3:1746769f02831290de76b74e254e8ceb$"
+    }
+}
