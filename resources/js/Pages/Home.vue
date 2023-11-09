@@ -17,6 +17,7 @@ import {onMounted, ref} from "vue";
 const appContainer = ref(null);
 
 onMounted(async () => {
+
     // The application will create a renderer using WebGL, if possible,
     // with a fallback to a canvas render. It will also setup the ticker
     // and the root stage PIXI.Container
@@ -57,7 +58,6 @@ onMounted(async () => {
     // const cat = loadSpriteSheet('character.png', app);
 
 
-
     appContainer.value.appendChild(app.view);
 
     const texture = await Assets.load("/img/background.jpg");
@@ -71,8 +71,7 @@ onMounted(async () => {
 
     app.stage.addChild(backgroundSprite);
 
-    app.ticker.add(() =>
-    {
+    app.ticker.add(() => {
         backgroundSprite.tilePosition.x -= 2;
     });
 
@@ -81,8 +80,46 @@ onMounted(async () => {
 
     const cat = await loadSpriteSheet('character.png', app);
     cat.y = 150;
+
+    cat.eventMode = 'static';
+    cat.cursor = 'pointer';
+    cat.on('pointerdown', onClick);
+
     app.stage.addChild(cat);
+
+    initMoving(cat);
 })
+
+const onClick = (event) => {
+    if (event.button === 0) {
+        event.currentTarget.scale.x *= 1.25;
+        event.currentTarget.scale.y *= 1.25;
+    } else if (event.button) {
+        event.currentTarget.scale.x /= 1.25;
+        event.currentTarget.scale.y /= 1.25;
+    }
+}
+
+const initMoving = (obj) => {
+    document.addEventListener('keydown', (event) => {
+        switch (event.key) {
+            case 'a':
+                obj.x -= 10;
+                break;
+            case 'd':
+                obj.x += 10;
+                break;
+            // case 's':
+            //     market.value.scene.position.y += .1;
+            //     CposY.value = market.value.scene.position.y
+            //     break;
+            // case 'w':
+            //     market.value.scene.position.y -= .1;
+            //     CposY.value = market.value.scene.position.y
+            //     break;
+        }
+    });
+}
 
 const loadSpriteSheet = async (filename) => {
     // Create object to store sprite sheet data
