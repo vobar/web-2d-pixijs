@@ -12,6 +12,7 @@ import {
     Container, Point, Graphics, TilingSprite
 } from 'pixi.js';
 import {onMounted, ref} from "vue";
+import {loadSpriteSheet} from "@/App/Game/loadSpriteSheet.js";
 //endregion pixijs
 
 const appContainer = ref(null);
@@ -72,22 +73,33 @@ onMounted(async () => {
     app.stage.addChild(backgroundSprite);
 
     app.ticker.add(() => {
-        backgroundSprite.tilePosition.x -= 2;
+        // backgroundSprite.tilePosition.x -= 2;
     });
 
     // force resize: slide.doResize();
     // renderer.render(app.stage);
 
-    const cat = await loadSpriteSheet('character.png', app);
-    cat.y = 150;
+    const catTextures = await loadSpriteSheet('/img/cat/', 'cat_white.json');
+    // const cat = await loadSpriteSheet('/img/', 'character.json');
 
-    cat.eventMode = 'static';
-    cat.cursor = 'pointer';
-    cat.on('pointerdown', onClick);
+    // spritesheet is ready to use!
+    let anim = new AnimatedSprite(catTextures.animations.right);
 
-    app.stage.addChild(cat);
+    // set the animation speed
+    anim.animationSpeed = 0.1;
+    // play the animation on a loop
+    anim.play();
 
-    initMoving(cat);
+    anim.y = 520;
+    anim.scale.x = 2;
+    anim.scale.y = 2;
+
+    anim.eventMode = 'static';
+    anim.cursor = 'pointer';
+    anim.on('pointerdown', onClick);
+
+    app.stage.addChild(anim);
+    initMoving(anim, catTextures);
 })
 
 const onClick = (event) => {
@@ -100,231 +112,65 @@ const onClick = (event) => {
     }
 }
 
-const initMoving = (obj) => {
-    document.addEventListener('keydown', (event) => {
-        switch (event.key) {
-            case 'a':
-                obj.x -= 10;
-                break;
-            case 'd':
-                obj.x += 10;
-                break;
-            // case 's':
-            //     market.value.scene.position.y += .1;
-            //     CposY.value = market.value.scene.position.y
-            //     break;
-            // case 'w':
-            //     market.value.scene.position.y -= .1;
-            //     CposY.value = market.value.scene.position.y
-            //     break;
-        }
-    });
-}
+let movingDirection = 'r';
 
-const loadSpriteSheet = async (filename) => {
-    // Create object to store sprite sheet data
-    const atlasData = {
-        frames: {
-            "character0": {
-                "frame": {
-                    "x": 1,
-                    "y": 1,
-                    "w": 293,
-                    "h": 450
-                },
-                "rotated": false,
-                "trimmed": false,
-                "spriteSourceSize": {
-                    "x": 1,
-                    "y": 1,
-                    "w": 856,
-                    "h": 1896
-                },
-                "sourceSize": {
-                    "w": 856,
-                    "h": 1896
-                }
-            },
-            "character1": {
-                "frame": {
-                    "x": 550,
-                    "y": 1,
-                    "w": 293,
-                    "h": 450
-                },
-                "rotated": false,
-                "trimmed": false,
-                "spriteSourceSize": {
-                    "x": 1,
-                    "y": 1,
-                    "w": 856,
-                    "h": 1896
-                },
-                "sourceSize": {
-                    "w": 856,
-                    "h": 1896
-                }
-            },
-            "character2": {
-                "frame": {
-                    "x": 9,
-                    "y": 484,
-                    "w": 293,
-                    "h": 450
-                },
-                "rotated": false,
-                "trimmed": false,
-                "spriteSourceSize": {
-                    "x": 1,
-                    "y": 1,
-                    "w": 856,
-                    "h": 1896
-                },
-                "sourceSize": {
-                    "w": 856,
-                    "h": 1896
-                }
-            },
-            "character3": {
-                "frame": {
-                    "x": 557,
-                    "y": 483,
-                    "w": 293,
-                    "h": 450
-                },
-                "rotated": false,
-                "trimmed": false,
-                "spriteSourceSize": {
-                    "x": 1,
-                    "y": 1,
-                    "w": 856,
-                    "h": 1896
-                },
-                "sourceSize": {
-                    "w": 856,
-                    "h": 1896
-                }
-            },
-            "character4": {
-                "frame": {
-                    "x": 17,
-                    "y": 970,
-                    "w": 293,
-                    "h": 450
-                },
-                "rotated": false,
-                "trimmed": false,
-                "spriteSourceSize": {
-                    "x": 1,
-                    "y": 1,
-                    "w": 856,
-                    "h": 1896
-                },
-                "sourceSize": {
-                    "w": 856,
-                    "h": 1896
-                }
-            },
-            "character5": {
-                "frame": {
-                    "x": 563,
-                    "y": 967,
-                    "w": 293,
-                    "h": 450
-                },
-                "rotated": false,
-                "trimmed": false,
-                "spriteSourceSize": {
-                    "x": 1,
-                    "y": 1,
-                    "w": 856,
-                    "h": 1896
-                },
-                "sourceSize": {
-                    "w": 856,
-                    "h": 1896
-                }
-            },
-            "character6": {
-                "frame": {
-                    "x": 9,
-                    "y": 1450,
-                    "w": 293,
-                    "h": 446
-                },
-                "rotated": false,
-                "trimmed": false,
-                "spriteSourceSize": {
-                    "x": 1,
-                    "y": 1,
-                    "w": 856,
-                    "h": 1896
-                },
-                "sourceSize": {
-                    "w": 856,
-                    "h": 1896
-                }
-            },
-            "character7": {
-                "frame": {
-                    "x": 557,
-                    "y": 1450,
-                    "w": 293,
-                    "h": 446
-                },
-                "rotated": false,
-                "trimmed": false,
-                "spriteSourceSize": {
-                    "x": 1,
-                    "y": 1,
-                    "w": 856,
-                    "h": 1896
-                },
-                "sourceSize": {
-                    "w": 856,
-                    "h": 1896
-                }
-            },
-        },
-        meta: {
-            image: 'img/' + filename,
-            format: 'RGBA8888',
-            size: {w: 856, h: 1896},
-            scale: 1
-        },
-        animations: {
-            character: [
-                'character0',
-                'character2',
-                'character4',
-                'character6',
-                'character1',
-                'character3',
-                'character5',
-                'character7',
-            ] //array of frames by name
+const initMoving = (obj, textures) => {
+    let tickRate = 30,
+        keyDown = {},
+        keyMap = {
+            37: 'left',
+            38: 'up',
+            39: 'right',
+            40: 'down'
+        };
+
+    document.addEventListener('keydown', (event) => {
+        keyDown[event.key] = true; //array is for bi-direction moving
+    });
+    document.addEventListener('keyup', (event) => {
+        keyDown[event.key] = false; //array is for bi-direction moving
+    });
+
+    const tick = () => {
+        if (keyDown['a']) {
+            if (movingDirection !== 'l') {
+                movingDirection = 'l';
+                obj.textures = textures.animations.left;
+                obj.play();
+            }
+            obj.x -= 10;
         }
+        if (keyDown['d']) {
+            if (movingDirection !== 'r') {
+                movingDirection = 'r';
+                obj.textures = textures.animations.right;
+                obj.play();
+            }
+            obj.x += 10;
+        }
+
+        if (keyDown['w']) {
+            if (movingDirection !== 'u') {
+                movingDirection = 'u';
+                obj.textures = textures.animations.up;
+                obj.play();
+            }
+            obj.y -= 10;
+        }
+        if (keyDown['s']) {
+            if (movingDirection !== 'd') {
+                movingDirection = 'd';
+                obj.textures = textures.animations.down;
+                obj.play();
+            }
+            obj.y += 10;
+        }
+
+        setTimeout(tick, tickRate);
     }
 
+    tick();
 
-    // Create the SpriteSheet from data and image
-    const spritesheet = new Spritesheet(
-        BaseTexture.from(atlasData.meta.image),
-        atlasData
-    );
-
-    // Generate all the Textures asynchronously
-    await spritesheet.parse();
-
-    // spritesheet is ready to use!
-    let anim = new AnimatedSprite(spritesheet.animations.character);
-
-    // set the animation speed
-    anim.animationSpeed = 0.1;
-    // play the animation on a loop
-    anim.play();
-
-    return anim;
 }
 
 

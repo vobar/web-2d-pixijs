@@ -1,8 +1,0 @@
-character_01.png.png 1 1,
-character_02.png.png 550 1,
-character_03.png.png 9 484,
-character_04.png.png 557 483,
-character_05.png.png 17 970,
-character_06.png.png 563 967,
-character_07.png.png 9 1450,
-character_08.png.png 557 1449.
